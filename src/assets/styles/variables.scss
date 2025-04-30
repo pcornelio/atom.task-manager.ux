@@ -1,0 +1,40 @@
+// Colores principales (Orange Atom)
+$primary-color: #FF5722;  // Orange 500
+$primary-dark: #E64A19;   // Orange 700
+$primary-light: #FFCCBC;  // Orange 100
+$accent-color: #2196F3;   // Blue 500
+$accent-dark: #1976D2;    // Blue 700
+$accent-light: #BBDEFB;   // Blue 100
+
+// Colores de fondo y texto
+$background-color: #FAFAFA;
+$surface-color: #FFFFFF;
+$text-color: #212121;
+$text-light: #757575;
+$text-on-primary: #FFFFFF;
+$text-on-accent: #FFFFFF;
+
+// Colores de estado
+$error-color: #F44336;
+$success-color: #4CAF50;
+$warning-color: #FFC107;
+$info-color: #2196F3;
+
+// Sombras
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+// Bordes
+$border-radius: 8px;
+$border-color: #E0E0E0;
+
+// Transiciones
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px; 
