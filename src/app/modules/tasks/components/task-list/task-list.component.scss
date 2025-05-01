@@ -313,4 +313,126 @@ button {
       padding: 1.5rem;
     }
   }
+}
+
+.task-list-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .task-form {
+    margin-bottom: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      margin: 0 0 20px;
+      color: #333;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      .form-control {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+
+        &:focus {
+          outline: none;
+          border-color: #2196f3;
+        }
+      }
+
+      textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+    }
+  }
+
+  .tasks-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+
+    .task-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+
+      .task-content {
+        padding: 15px;
+
+        .task-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 10px;
+
+          h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+          }
+
+          .task-actions {
+            display: flex;
+            gap: 5px;
+          }
+        }
+
+        p {
+          margin: 0 0 15px;
+          color: #666;
+          font-size: 14px;
+        }
+
+        .task-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .task-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+
+            &.status-pending {
+              background: #fff3e0;
+              color: #e65100;
+            }
+
+            &.status-in-progress {
+              background: #e3f2fd;
+              color: #1565c0;
+            }
+
+            &.status-completed {
+              background: #e8f5e9;
+              color: #2e7d32;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Estilos responsivos
+@media (max-width: 768px) {
+  .task-list-container {
+    padding: 10px;
+
+    .tasks-container {
+      grid-template-columns: 1fr;
+    }
+  }
 } 

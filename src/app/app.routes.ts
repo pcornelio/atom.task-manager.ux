@@ -9,6 +9,12 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'kanban',
+    loadComponent: () => import('./modules/tasks/components/kanban-board/kanban-board.component')
+      .then(m => m.KanbanBoardComponent),
+    canActivate: [authGuard]
+  },
+  {
     path: 'login',
     loadComponent: () => import('./modules/auth/components/login/login.component')
       .then(m => m.LoginComponent)

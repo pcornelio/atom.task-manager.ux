@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
-import { routes } from './app.routes';
 import { AppComponent } from './app.component';
 import { AuthModule } from './modules/auth/auth.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -14,7 +13,7 @@ import { AuthModule } from './modules/auth/auth.module';
     BrowserModule,
     HttpClientModule,
     AuthModule,
-    RouterModule.forRoot(routes)
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

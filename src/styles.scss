@@ -9,3 +9,108 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #f8f9fa;
 }
+
+// Estilos globales para botones
+.mat-raised-button,
+.mat-button,
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-transform: none;
+    font-size: 1rem;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+
+    mat-icon {
+        font-size: 1.2rem;
+        height: 1.2rem;
+        width: 1.2rem;
+    }
+}
+
+// Botón primario (naranja Atom)
+.mat-raised-button.mat-primary,
+.btn-primary {
+    background-color: #ff6600;
+    color: white;
+
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+
+    &:hover {
+        opacity: 0.9;
+        background-color: #ff8700;
+    }
+}
+
+// Botón secundario (azul Atom)
+.mat-raised-button.mat-accent,
+.btn-secondary {
+    background-color: #2979ff;
+    color: white;
+
+    &:hover {
+        background-color: #448aff;
+    }
+}
+
+// Botón de texto
+.mat-button {
+    background: transparent;
+    color: #ff6600;
+
+    &:hover {
+        background-color: rgba(255, 102, 0, 0.04);
+    }
+}
+
+// Botón outline
+.btn-outline-light {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+// Botón de icono
+.mat-icon-button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: rgba(255, 102, 0, 0.04);
+    }
+
+    mat-icon {
+        font-size: 1.2rem;
+        height: 1.2rem;
+        width: 1.2rem;
+    }
+}

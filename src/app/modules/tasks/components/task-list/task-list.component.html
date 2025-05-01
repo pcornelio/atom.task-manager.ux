@@ -2,33 +2,9 @@
   <div class="row mb-4">
     <div class="col-12 d-flex justify-content-between align-items-center">
       <h1>Lista de Tareas</h1>
-      <button class="btn btn-danger" (click)="logout()">
-        <fa-icon [icon]="faSignOutAlt"></fa-icon> Cerrar Sesión
+      <button mat-raised-button color="primary" (click)="openTaskForm()">
+        <fa-icon [icon]="faPlus"></fa-icon> Nueva Tarea
       </button>
-    </div>
-  </div>
-
-  <!-- Formulario para crear tareas -->
-  <div class="row mb-4">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Nueva Tarea</h5>
-          <form (ngSubmit)="createTask()">
-            <div class="mb-3">
-              <label for="title" class="form-label">Título</label>
-              <input type="text" class="form-control" id="title" [(ngModel)]="newTask.title" name="title" required>
-            </div>
-            <div class="mb-3">
-              <label for="description" class="form-label">Descripción</label>
-              <textarea class="form-control" id="description" [(ngModel)]="newTask.description" name="description" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">
-              <fa-icon [icon]="faPlus"></fa-icon> Crear Tarea
-            </button>
-          </form>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -44,35 +20,29 @@
                 <tr>
                   <th>Título</th>
                   <th>Descripción</th>
+                  <th>Estado</th>
                   <th>Fecha de Creación</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let task of tasks">
+                  <td>{{ task.title }}</td>
+                  <td>{{ task.description }}</td>
                   <td>
-                    <span *ngIf="editingTask?.id !== task.id">{{ task.title }}</span>
-                    <input *ngIf="editingTask?.id === task.id" type="text" class="form-control" 
-                      [ngModel]="editingTask?.title" 
-                      (ngModelChange)="editingTask && (editingTask.title = $event)">
-                  </td>
-                  <td>
-                    <span *ngIf="editingTask?.id !== task.id">{{ task.description }}</span>
-                    <input *ngIf="editingTask?.id === task.id" type="text" class="form-control"
-                      [ngModel]="editingTask?.description"
-                      (ngModelChange)="editingTask && (editingTask.description = $event)">
+                    <span class="badge" [ngClass]="{
+                      'bg-warning': task.status === TaskStatus.PENDING,
+                      'bg-info': task.status === TaskStatus.IN_PROGRESS,
+                      'bg-success': task.status === TaskStatus.COMPLETED
+                    }">
+                      {{ task.status }}
+                    </span>
                   </td>
                   <td>{{ task.createdAt._seconds * 1000 | date:'medium' }}</td>
                   <td>
                     <div class="btn-group" role="group">
-                      <button *ngIf="editingTask?.id !== task.id" class="btn btn-warning btn-sm" (click)="startEdit(task)">
+                      <button class="btn btn-warning btn-sm" (click)="openTaskForm(task)">
                         <fa-icon [icon]="faEdit"></fa-icon>
-                      </button>
-                      <button *ngIf="editingTask?.id === task.id" class="btn btn-success btn-sm" (click)="updateTask()">
-                        <fa-icon [icon]="faSave"></fa-icon>
-                      </button>
-                      <button *ngIf="editingTask?.id === task.id" class="btn btn-secondary btn-sm" (click)="cancelEdit()">
-                        <fa-icon [icon]="faTimes"></fa-icon>
                       </button>
                       <button class="btn btn-danger btn-sm" (click)="deleteTask(task.id)">
                         <fa-icon [icon]="faTrash"></fa-icon>

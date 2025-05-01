@@ -1,17 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+import { Task, TaskStatus } from '../../models/task.model';
 import { TaskService } from '../../services/task.service';
-import { Task } from '../../models/task.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../auth/services/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlus, faEdit, faTrash, faSave, faTimes, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog } from '@angular/material/dialog';
+import { TaskFormComponent } from '../task-form/task-form.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, FontAwesomeModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    FontAwesomeModule,
+    MatButtonModule,
+    MatIconModule
+  ],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss']
 })
@@ -20,23 +30,15 @@ export class TaskListComponent implements OnInit {
   faPlus = faPlus;
   faEdit = faEdit;
   faTrash = faTrash;
-  faSave = faSave;
-  faTimes = faTimes;
-  faSignOutAlt = faSignOutAlt;
 
   tasks: Task[] = [];
-  newTask: Omit<Task, 'id' | 'createdAt'> = {
-    title: '',
-    description: '',
-    completed: false,
-    userId: ''
-  };
-  editingTask: Task | null = null;
+  TaskStatus = TaskStatus;
 
   constructor(
     private taskService: TaskService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -49,44 +51,17 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  createTask(): void {
-    if (this.newTask.title && this.newTask.description) {
-      const taskToCreate = {
-        ...this.newTask,
-        userId: this.authService.token?.split('.')[0] || ''
-      };
-      
-      this.taskService.createTask(taskToCreate).subscribe(() => {
+  openTaskForm(task?: Task): void {
+    const dialogRef = this.dialog.open(TaskFormComponent, {
+      width: '500px',
+      data: { task }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
         this.loadTasks();
-        this.newTask = { title: '', description: '', completed: false, userId: '' };
-      });
-    }
-  }
-
-  startEdit(task: Task): void {
-    this.editingTask = { ...task };
-  }
-
-  cancelEdit(): void {
-    this.editingTask = null;
-  }
-
-  updateTask(): void {
-    if (this.editingTask) {
-      this.taskService.updateTask(this.editingTask.id, {
-        title: this.editingTask.title,
-        description: this.editingTask.description,
-        completed: this.editingTask.completed
-      }).subscribe(() => {
-        this.loadTasks();
-        this.editingTask = null;
-      });
-    }
-  }
-
-  updateTaskStatus(task: Task): void {
-    this.taskService.updateTask(task.id, { completed: !task.completed })
-      .subscribe(() => this.loadTasks());
+      }
+    });
   }
 
   deleteTask(id: string): void {

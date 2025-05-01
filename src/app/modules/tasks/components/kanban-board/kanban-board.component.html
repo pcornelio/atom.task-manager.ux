@@ -1,0 +1,103 @@
+<div class="main-content">
+    <div class="kanban-header">
+        <h1 class="kanban-title">Tablero Kanban</h1>
+        <button mat-raised-button color="primary" (click)="openTaskForm()">
+            <fa-icon [icon]="faPlus"></fa-icon> Nueva Tarea
+        </button>
+    </div>
+
+    <div class="kanban-container">
+        <!-- Columna de Tareas Pendientes -->
+        <div class="kanban-column">
+            <h2>Pendientes</h2>
+            <div
+                cdkDropList
+                #pendingList="cdkDropList"
+                [cdkDropListData]="pendingTasks"
+                [cdkDropListConnectedTo]="[inProgressList, completedList]"
+                class="task-list"
+                (cdkDropListDropped)="drop($event)"
+                id="pendingList">
+                <div class="task-card" *ngFor="let task of pendingTasks" cdkDrag>
+                    <div class="task-header">
+                        <h3>{{ task.title }}</h3>
+                        <div class="task-actions">
+                            <button mat-icon-button color="primary" (click)="openTaskForm(task)">
+                                <fa-icon [icon]="faEdit"></fa-icon>
+                            </button>
+                            <button mat-icon-button color="warn" (click)="deleteTask(task.id)">
+                                <fa-icon [icon]="faTrash"></fa-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <p>{{ task.description }}</p>
+                    <div class="task-footer">
+                        <span class="task-date">{{ task.createdAt._seconds * 1000 | date:'short' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna de Tareas en Progreso -->
+        <div class="kanban-column">
+            <h2>En Progreso</h2>
+            <div
+                cdkDropList
+                #inProgressList="cdkDropList"
+                [cdkDropListData]="inProgressTasks"
+                [cdkDropListConnectedTo]="[pendingList, completedList]"
+                class="task-list"
+                (cdkDropListDropped)="drop($event)"
+                id="inProgressList">
+                <div class="task-card" *ngFor="let task of inProgressTasks" cdkDrag>
+                    <div class="task-header">
+                        <h3>{{ task.title }}</h3>
+                        <div class="task-actions">
+                            <button mat-icon-button color="primary" (click)="openTaskForm(task)">
+                                <fa-icon [icon]="faEdit"></fa-icon>
+                            </button>
+                            <button mat-icon-button color="warn" (click)="deleteTask(task.id)">
+                                <fa-icon [icon]="faTrash"></fa-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <p>{{ task.description }}</p>
+                    <div class="task-footer">
+                        <span class="task-date">{{ task.createdAt._seconds * 1000 | date:'short' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna de Tareas Completadas -->
+        <div class="kanban-column">
+            <h2>Completadas</h2>
+            <div
+                cdkDropList
+                #completedList="cdkDropList"
+                [cdkDropListData]="completedTasks"
+                [cdkDropListConnectedTo]="[pendingList, inProgressList]"
+                class="task-list"
+                (cdkDropListDropped)="drop($event)"
+                id="completedList">
+                <div class="task-card" *ngFor="let task of completedTasks" cdkDrag>
+                    <div class="task-header">
+                        <h3>{{ task.title }}</h3>
+                        <div class="task-actions">
+                            <button mat-icon-button color="primary" (click)="openTaskForm(task)">
+                                <fa-icon [icon]="faEdit"></fa-icon>
+                            </button>
+                            <button mat-icon-button color="warn" (click)="deleteTask(task.id)">
+                                <fa-icon [icon]="faTrash"></fa-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <p>{{ task.description }}</p>
+                    <div class="task-footer">
+                        <span class="task-date">{{ task.createdAt._seconds * 1000 | date:'short' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

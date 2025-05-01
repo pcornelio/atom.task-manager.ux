@@ -1,0 +1,25 @@
+<nav class="navbar" *ngIf="isAuthenticated$ | async">
+  <div class="navbar-content">
+    <div class="navbar-left">
+      <a routerLink="/" class="logo-text">Atom Task Manager</a>
+      <div class="nav-links">
+        <a class="nav-link" routerLink="/tasks" routerLinkActive="active"
+          >Lista</a
+        >
+        <a class="nav-link" routerLink="/kanban" routerLinkActive="active"
+          >Kanban</a
+        >
+      </div>
+    </div>
+    <div class="navbar-right">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="logout()"
+        class="logout-button"
+      >
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </div>
+</nav>
